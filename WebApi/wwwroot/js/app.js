@@ -8,7 +8,8 @@ var app = new Vue({
             patients: [],
             sortingPriority: [],
             backendSortingEnabled: true,
-            order:'none'
+            order: 'none',
+            isLoadingPatients: false
         }
     },
     watch: {
@@ -26,16 +27,18 @@ var app = new Vue({
         console.log(`the component is now mounted.`)
     },
     methods: {
-        isCurrent(id){
-          return this.clinicId === id;  
+        isCurrent(id) {
+            return this.clinicId === id;
         },
         setClinicId(clinicId) {
             this.clinicId = clinicId;
         },
         getPatients() {
+            this.isLoadingPatients = true;
             axios
                 .get(`/Clinics/Patients?clinicId=${this.clinicId}&order=${this.order}`)
                 .then(response => (this.patients = response.data))
+                .finally(() => this.isLoadingPatients = false)
         },
         sortPressed(field, order) {
             this.order = order

@@ -19,7 +19,7 @@
                 class="button" 
                 v-for="clinic in clinics" 
                 v-on:click="setClinicId(clinic.id)" 
-                v-bind:class="{ 'is-info': isCurrent(clinic.id) }">
+                v-bind:class="{ 'is-info': isCurrent(clinic.id) , 'is-loading': isLoadingPatients && isCurrent(clinic.id)}">
                 {{clinic.name}}
             </button>
         </div>
@@ -36,7 +36,6 @@
             <b-table-column field="dateOfBirth" label="Date of birth" sortable v-slot="props">
                 {{ props.row.dateOfBirth }}
             </b-table-column>
-
         </b-table>
     </div>
 </section>
