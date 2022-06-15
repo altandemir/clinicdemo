@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+    <link rel="shortcut icon" href="#"/>
+</head>
+<body>
+<section class="section">
+    <div class="container" id="app">
+        <div class="buttons">
+            <button 
+                class="button" 
+                v-for="clinic in clinics" 
+                v-on:click="setClinicId(clinic.id)" 
+                v-bind:class="{ 'is-info': isCurrent(clinic.id) }">
+                {{clinic.name}}
+            </button>
+        </div>
+        <b-table
+            :data="patients"
+            :backend-sorting="backendSortingEnabled"
+            @@sort="sortPressed">
+            <b-table-column field="firstName" label="First name" v-slot="props">
+                {{ props.row.firstName }}
+            </b-table-column>
+            <b-table-column field="lastName" label="Last name" v-slot="props">
+                {{ props.row.lastName }}
+            </b-table-column>
+            <b-table-column field="dateOfBirth" label="Date of birth" sortable v-slot="props">
+                {{ props.row.dateOfBirth }}
+            </b-table-column>
+
+        </b-table>
+    </div>
+</section>
+<script src="~/js/app.js"></script>
+</body>
+</html>
